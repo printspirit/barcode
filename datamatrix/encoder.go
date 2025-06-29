@@ -3,7 +3,6 @@ package datamatrix
 
 import (
 	"errors"
-
 	"github.com/boombuler/barcode"
 )
 
@@ -62,7 +61,13 @@ func encodeText(content string) []byte {
 			// not correct... needs to be redone later...
 			result = append(result, 235, c-127)
 		} else {
-			result = append(result, c+1)
+			switch c {
+			case '\x29': 
+    			// FNC1 use GS as FNC1 and change to 232
+				result = append(result, 232)	
+			default:
+				result = append(result, c+1) // 常规字符+1
+			}
 		}
 	}
 	return result

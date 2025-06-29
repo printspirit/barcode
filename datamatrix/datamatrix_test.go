@@ -100,3 +100,55 @@ func Test_Issue12(t *testing.T) {
 		}
 	}
 }
+
+
+func Test_encode(t *testing.T) {
+    data:="12"
+    b := encodeText(data)
+    if bytes.Compare(b, []byte{142}) != 0 {
+		t.Errorf("Error encode 12 \nGot: %v", b)
+		return
+	}
+	
+	data ="123"
+    b = encodeText(data)
+    if bytes.Compare(b, []byte{142, 52}) != 0 {
+		t.Errorf("Error encode 12 \nGot: %v", b)
+		return
+	}
+	
+	data ="abc"
+    b = encodeText(data)
+    if bytes.Compare(b, []byte{98,99,100}) != 0 {
+		t.Errorf("Error encode abc \nGot: %v", b)
+		return
+	}
+	
+	data ="ABC"
+    b = encodeText(data)
+    if bytes.Compare(b, []byte{66,67,68}) != 0 {
+		t.Errorf("Error encode abc \nGot: %v", b)
+		return
+	}
+	
+	data ="1ABC"
+    b = encodeText(data)
+    if bytes.Compare(b, []byte{50, 66,67,68}) != 0 {
+		t.Errorf("Error encode abc \nGot: %v", b)
+		return
+	}
+		
+	data ="A\r\nA"
+    b = encodeText(data)
+    if bytes.Compare(b, []byte{66,14,11,66}) != 0 {
+		t.Errorf("Error encode A\\r\\nA \nGot: %v", b)
+		return
+	}
+	
+	data ="\x2900"
+    b = encodeText(data)
+    if bytes.Compare(b, []byte{232,130}) != 0 {
+		t.Errorf("Error encode GS1 \nGot: %v", b)
+		return
+	}
+}
