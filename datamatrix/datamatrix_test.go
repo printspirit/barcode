@@ -145,7 +145,7 @@ func Test_encode(t *testing.T) {
 		return
 	}
 	
-	data ="\x2900"
+	data ="\x1D00"
     b = encodeText(data)
     if bytes.Compare(b, []byte{232,130}) != 0 {
 		t.Errorf("Error encode GS1 \nGot: %v", b)

@@ -62,7 +62,7 @@ func encodeText(content string) []byte {
 			result = append(result, 235, c-127)
 		} else {
 			switch c {
-			case '\x29': 
+			case '\x1D': 
     			// FNC1 use GS as FNC1 and change to 232
 				result = append(result, 232)	
 			default:
